@@ -35,7 +35,7 @@ export default function ImportExportPage() {
         <div className="text-xs text-slate-500">
           Applicants CSV columns: firstName,lastName,dateOfBirth,nationality,passportNumber,phone,email,address
           <br />
-          Cases CSV columns: caseId,applicantPassportNumber,status,submittedAt,notes
+          Cases CSV columns: Title,Application Date,Operator,Customer,Customer:Phone,Customer:Email,Applicant Name,Applicant Phone Number,Applicant Email,Appointment Date,Applicant Type,Visa Country,Visa Type,Embassy Fees,Other Fees,Empire Fees,Status,Passport,Save Passport,Attachments,Calculated Cost,Notes
         </div>
       </section>
     </div>

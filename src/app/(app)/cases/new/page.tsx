@@ -33,6 +33,47 @@ export default async function NewCasePage() {
           </select>
         </div>
         <div>
+          <label htmlFor="applicationDate">Application date</label>
+          <input id="applicationDate" name="applicationDate" type="date" />
+        </div>
+        <div>
+          <label htmlFor="operatorName">Operator</label>
+          <input id="operatorName" name="operatorName" />
+        </div>
+        <div>
+          <label htmlFor="customerName">Customer</label>
+          <input id="customerName" name="customerName" />
+        </div>
+        <div>
+          <label htmlFor="customerPhone">Customer phone</label>
+          <input id="customerPhone" name="customerPhone" />
+        </div>
+        <div>
+          <label htmlFor="customerEmail">Customer email</label>
+          <input id="customerEmail" name="customerEmail" type="email" />
+        </div>
+        <div>
+          <label htmlFor="appointmentDate">Appointment date</label>
+          <input id="appointmentDate" name="appointmentDate" type="date" />
+        </div>
+        <div>
+          <label htmlFor="applicantType">Applicant type</label>
+          <select id="applicantType" name="applicantType" defaultValue="">
+            <option value="">Select type</option>
+            <option value="Adult">Adult</option>
+            <option value="Child">Child</option>
+            <option value="Infant">Infant</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="visaCountry">Visa country</label>
+          <input id="visaCountry" name="visaCountry" />
+        </div>
+        <div>
+          <label htmlFor="visaType">Visa type</label>
+          <input id="visaType" name="visaType" />
+        </div>
+        <div>
           <label htmlFor="status">Status</label>
           <select id="status" name="status" defaultValue="Intake">
             {STATUSES.map((item) => (
@@ -43,6 +84,22 @@ export default async function NewCasePage() {
         <div>
           <label htmlFor="submittedAt">Submitted date</label>
           <input id="submittedAt" name="submittedAt" type="date" />
+        </div>
+        <div>
+          <label htmlFor="embassyFees">Embassy fees</label>
+          <input id="embassyFees" name="embassyFees" />
+        </div>
+        <div>
+          <label htmlFor="otherFees">Other fees</label>
+          <input id="otherFees" name="otherFees" />
+        </div>
+        <div>
+          <label htmlFor="empireFees">Empire fees</label>
+          <input id="empireFees" name="empireFees" />
+        </div>
+        <div>
+          <label htmlFor="calculatedCost">Calculated cost</label>
+          <input id="calculatedCost" name="calculatedCost" />
         </div>
         <div className="md:col-span-2">
           <label htmlFor="notes">Notes</label>

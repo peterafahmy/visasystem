@@ -72,6 +72,7 @@ export default async function CasesPage({
               <th>Case ID</th>
               <th>Applicant</th>
               <th>Passport #</th>
+              <th>Visa</th>
               <th>Status</th>
               <th>Updated</th>
               <th></th>
@@ -83,6 +84,7 @@ export default async function CasesPage({
                 <td>{item.caseId}</td>
                 <td>{item.applicant.firstName} {item.applicant.lastName}</td>
                 <td>{item.applicant.passportNumber}</td>
+                <td>{item.visaCountry ?? '-'} {item.visaType ? `(${item.visaType})` : ''}</td>
                 <td>{item.status}</td>
                 <td>{new Date(item.updatedAt).toLocaleDateString()}</td>
                 <td className="text-right">
@@ -92,7 +94,7 @@ export default async function CasesPage({
             ))}
             {cases.length === 0 ? (
               <tr>
-                <td colSpan={6} className="text-center text-slate-500 py-6">No cases found.</td>
+                <td colSpan={7} className="text-center text-slate-500 py-6">No cases found.</td>
               </tr>
             ) : null}
           </tbody>

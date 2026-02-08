@@ -59,6 +59,19 @@ model Case {
   status      String
   submittedAt DateTime?
   notes       String?
+  applicationDate DateTime?
+  operatorName    String?
+  customerName    String?
+  customerPhone   String?
+  customerEmail   String?
+  appointmentDate DateTime?
+  applicantType   String?
+  visaCountry     String?
+  visaType        String?
+  embassyFees     String?
+  otherFees       String?
+  empireFees      String?
+  calculatedCost  String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   createdById String?
@@ -68,10 +81,17 @@ model Case {
   documents   Document[]
 }
 
+enum DocumentType {
+  PASSPORT
+  ATTACHMENT
+  OTHER
+}
+
 model Document {
   id           String   @id @default(cuid())
   caseId       String
   case         Case     @relation(fields: [caseId], references: [id])
+  docType      DocumentType @default(OTHER)
   filename     String
   originalName String
   mimeType     String

@@ -22,6 +22,10 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 
   const form = await req.formData();
   const file = form.get('file');
+  const docTypeRaw = String(form.get('docType') || 'OTHER').toUpperCase();
+  const docType = ['PASSPORT', 'ATTACHMENT', 'OTHER'].includes(docTypeRaw)
+    ? (docTypeRaw as 'PASSPORT' | 'ATTACHMENT' | 'OTHER')
+    : 'OTHER';
 
   if (!file || !(file instanceof File)) {
     return NextResponse.json({ error: 'No file provided' }, { status: 400 });
@@ -44,6 +48,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
   await prisma.document.create({
     data: {
       caseId: params.id,
+      docType,
       filename,
       originalName: file.name,
       mimeType: file.type || 'application/octet-stream',

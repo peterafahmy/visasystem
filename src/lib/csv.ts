@@ -30,7 +30,12 @@ export function parseCSV(input: string) {
     .filter((line) => line.length > 0);
 
   if (lines.length === 0) return [];
-  const headers = parseLine(lines[0]);
+  const headers = parseLine(lines[0]).map((header, idx) => {
+    if (idx === 0) {
+      return header.replace(/^\uFEFF/, '').replace(/^\"?\uFEFF/, '').replace(/^\uFEFF\"?/, '');
+    }
+    return header;
+  });
   return lines.slice(1).map((line) => {
     const values = parseLine(line);
     const row: Record<string, string> = {};
