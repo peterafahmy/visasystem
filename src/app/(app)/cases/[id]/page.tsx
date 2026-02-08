@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/db';
+import type { Prisma } from '@prisma/client';
 
 const STATUSES = ['Intake', 'In Review', 'Awaiting Docs', 'Approved', 'Rejected'];
 
@@ -9,7 +10,9 @@ export default async function CaseDetailPage({
 }: {
   params: { id: string };
 }) {
-  const visaCase = await prisma.case.findUnique({
+  const visaCase: Prisma.CaseGetPayload<{
+    include: { applicant: true; documents: true };
+  }> | null = await prisma.case.findUnique({
     where: { id: params.id },
     include: {
       applicant: true,

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
+import type { Prisma } from '@prisma/client';
 
 const STATUSES = ['Intake', 'In Review', 'Awaiting Docs', 'Approved', 'Rejected'];
 
@@ -11,7 +12,8 @@ export default async function CasesPage({
   const q = searchParams?.q?.trim() ?? '';
   const status = searchParams?.status?.trim() ?? '';
 
-  const cases = await prisma.case.findMany({
+  const cases: Prisma.CaseGetPayload<{ include: { applicant: true } }>[] =
+    await prisma.case.findMany({
     where: {
       ...(status ? { status } : {}),
       ...(q

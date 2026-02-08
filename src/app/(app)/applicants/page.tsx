@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
+import type { Applicant } from '@prisma/client';
 
 export default async function ApplicantsPage({
   searchParams
@@ -8,7 +9,7 @@ export default async function ApplicantsPage({
 }) {
   const q = searchParams?.q?.trim() ?? '';
 
-  const applicants = await prisma.applicant.findMany({
+  const applicants: Applicant[] = await prisma.applicant.findMany({
     where: q
       ? {
           OR: [
