@@ -2,6 +2,8 @@ import { prisma } from '@/lib/db';
 
 const STATUSES = ['Intake', 'In Review', 'Awaiting Docs', 'Approved', 'Rejected'];
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
   const counts = await prisma.case.groupBy({
     by: ['status'],

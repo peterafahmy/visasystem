@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { toCSV } from '@/lib/csv';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   const cases = await prisma.case.findMany({
     include: { applicant: true },

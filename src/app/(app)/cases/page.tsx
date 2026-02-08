@@ -4,6 +4,8 @@ import type { Prisma } from '@prisma/client';
 
 const STATUSES = ['Intake', 'In Review', 'Awaiting Docs', 'Approved', 'Rejected'];
 
+export const dynamic = 'force-dynamic';
+
 export default async function CasesPage({
   searchParams
 }: {
