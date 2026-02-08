@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  sessions     Session[]
+  createdApplicants Applicant[] @relation("ApplicantCreatedBy")
+  updatedApplicants Applicant[] @relation("ApplicantUpdatedBy")
+  createdCases Case[] @relation("CaseCreatedBy")
+  updatedCases Case[] @relation("CaseUpdatedBy")
+  uploadedDocuments Document[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Applicant {
+  id             String   @id @default(cuid())
+  firstName      String
+  lastName       String
+  dateOfBirth    DateTime?
+  nationality    String
+  passportNumber String   @unique
+  phone          String?
+  email          String?
+  address        String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  createdById    String?
+  updatedById    String?
+  createdBy      User?    @relation("ApplicantCreatedBy", fields: [createdById], references: [id])
+  updatedBy      User?    @relation("ApplicantUpdatedBy", fields: [updatedById], references: [id])
+  cases          Case[]
+}
+
+model Case {
+  id          String   @id @default(cuid())
+  caseId      String   @unique
+  applicantId String
+  applicant   Applicant @relation(fields: [applicantId], references: [id])
+  status      String
+  submittedAt DateTime?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdById String?
+  updatedById String?
+  createdBy   User?    @relation("CaseCreatedBy", fields: [createdById], references: [id])
+  updatedBy   User?    @relation("CaseUpdatedBy", fields: [updatedById], references: [id])
+  documents   Document[]
+}
+
+model Document {
+  id           String   @id @default(cuid())
+  caseId       String
+  case         Case     @relation(fields: [caseId], references: [id])
+  filename     String
+  originalName String
+  mimeType     String
+  size         Int
+  storagePath  String
+  uploadedAt   DateTime @default(now())
+  uploadedById String?
+  uploadedBy   User?    @relation(fields: [uploadedById], references: [id])
+}
